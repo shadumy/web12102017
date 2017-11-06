@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+    <head>
+         <script type="text/javascript" src="jquery.js"></script>
+    </head>
+    <body>
+        
+        
+        <ol id='coffee'>
+            <li>Latte</li>
+            <li>Mocha</li>
+            <li>Dog</li>
+        </ol>
+
+        <ol id='cake'>
+            <li>Orange Cake</li>
+            <li>Matcha Cake</li>
+            <li>Strawberry Cake</li>
+        </ol>
+        <select class='coff'>
+            <option>Please Select</option>
+           
+        </select>
+        <p id='counter'></p>
+        <p id='message'></p>
+        <button id='subtract'>Decrease</button>
+        <button id='plus'>Increase</button>
+        <p id='num'></p>
+
+        <input id='name'><button id='ok'>OK</button>
+        <p id='name_value'>Hello</p>
+
+        
+        <input id='duty'><button id='ok2'>Add</button>
+        <p id='duty_value'></p>
+
+        <button id='refresh'>Refresh</button>
+        <p id='retrieve'></p>
+
+        <button id='refresh2'>Refresh2</button>
+        <p id='retrieve2'></p>
+
+        <script>
+            //$(start) //เริ่มทำงานที่ฟังก์ชัน start()
+            
+            $('body').prepend('Welcome to JQuery2')
+            
+            var data=['Espresso','Cappuccino']
+           
+            for(var i of data){
+                $('ol#coffee').append('<li>'+i+'</li>')
+            }
+            var data2 =['Espresso','Cappucino','Americano','Latte','Mocha']
+            for (x of data2){
+                $('.coff').append('<option>'+x+'</option>')
+            }
+            var value=0
+            $('#counter').text(value)
+            setInterval(show,1000)//สั่ง refresh หน้าจอทุกๆ 1 วินาที
+            function show(){
+                value=value+1
+                $('#counter').text(value)
+            }
+            $('#message').html('<i>Good morning</i>')
+            var numbers=0
+            $('#num').text(numbers)
+            $('#subtract').click(function() {
+                numbers-=1
+                $('#num').text(numbers)
+            })
+                
+            $('#plus').click(function() {
+                numbers+=1
+                $('#num').text(numbers)
+            })
+            
+            $('#ok').click(function(){
+                x=$('#name').val() //Read data from input box
+                $('#name_value').text('Hello '+x)
+                $('#name').val('') 
+            })
+            numberss=1
+            $('#ok2').click(function(){
+                x=$('#duty').val() //Read data from input box
+                
+                $('#duty_value').append(numberss+'. '+x+'<br>')
+                numberss+=1
+                $('#duty').val('') 
+            })
+            var nam=0
+            $.get('https://codestar.work/coffee').done(show)
+            //อ่านข้อมูลจาก url ข้างบนแล้วไปเรียกฟังก์ชัน show
+            function show(data) {
+                $('#refresh').click(refresh)
+                
+                function refresh(){
+                      
+                    $('#retrieve').append('<li>'+data[nam]+'</li>')
+                    nam+=1
+                    
+                    
+                }
+            }
+
+            $.get('https://codestar.work/coffee').done(show2)
+            //อ่านข้อมูลจาก url ข้างบนแล้วไปเรียกฟังก์ชัน show
+            function show2(data) {
+                $('#refresh2').click(refresh)
+                
+                function refresh(){
+                    $('#retrieve2').empty()
+                    for(i of data){
+                        $('#retrieve2').append('<button>'+i+'</button>')
+                    
+                    }  
+                    
+                    
+                    
+                }
+            }
+
+        </script>
+    </body>
+</html>
